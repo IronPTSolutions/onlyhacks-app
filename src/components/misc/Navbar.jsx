@@ -26,6 +26,12 @@ function NavBar() {
             <li className="nav-item">
               <NavLink to="/users/create" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Create Users</NavLink>
             </li>
+            <li className="nav-item">
+              <NavLink to="/signup" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Signup</NavLink>
+            </li>
+            <li className="nav-item">
+              <NavLink to="/login" className={({ isActive }) => isActive ? 'nav-link active' : 'nav-link'}>Login</NavLink>
+            </li>
           </ul>
         </div>
       </div>
