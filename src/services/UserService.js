@@ -1,4 +1,9 @@
-import http from "./BaseService";
+import createHttp from "./BaseService";
+
+const http = createHttp(true);
+//const noAuthHttp = createHttp() -> NO es necesario enviar cabecera Authorization
+
+export const getCurrentUser = () => http.get("/users/me");
 
 export const getUsers = () => http.get("/users").then((res) => res);
 

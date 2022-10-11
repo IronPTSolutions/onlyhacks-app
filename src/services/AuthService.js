@@ -1,4 +1,7 @@
-import http from "./BaseService";
+import createHttp from "./BaseService";
 
-export const login = (body) =>
-  http.post("/login", body).then((res) => res);
+const http = createHttp(false);
+
+export const login = (data) => http.post("/login", data);
+
+export const register = (data) => http.post("/users", data);

@@ -1,13 +1,16 @@
 import { useFormik } from 'formik';
+import { useContext } from 'react';
 import { useLocation } from 'react-router-dom';
 import Input from '../../components/misc/Input';
-import { login } from '../../services/AuthService';
+import AuthContext from '../../contexts/AuthContext';
+import { login as userLogin } from '../../services/AuthService';
 import LoginSchema from './LoginSchema';
 
 
 function Login() {
   const { state } = useLocation()
-  
+  const { login } = useContext(AuthContext)
+
   const INITIAL_VALUES = {
     email: (state && state.email) || '',
     password: ''
@@ -25,13 +28,12 @@ function Login() {
   })
 
   function onSubmit(values) { // Lo declaro como function en vez de const, porque asi por el hoisting la puedo usar en el useFormik
-    login(values)
-      .then(token => {
-        console.log(token)
+    userLogin(values)
+      .then(({ accessToken }) => {
+        login(accessToken)
         setSubmitting(false)
         resetForm()
       })
-    
   }
 
   return (

@@ -4,7 +4,6 @@ import ERRORS from '../../constants/formErrors';
 const SignupSchema = Yup.object().shape({
   name: Yup
     .string()
-    .oneOf(['Pepe', 'Paco'], ERRORS.ERROR_NAME_ENUM)
     .required(ERRORS.ERROR_REQUIRED),
   email: Yup
     .string()

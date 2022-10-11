@@ -38,10 +38,10 @@ const UserDetailScreen = () => {
 
   return (
     <div>
-      <div class="jumbotron bg-dark text-light jumbotron-fluid p-4">
-        <div class="container">
-          <h1 class="display-4">Users Detail</h1>
-          <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+      <div className="jumbotron bg-dark text-light jumbotron-fluid p-4">
+        <div className="container">
+          <h1 className="display-4">Users Detail</h1>
+          <p className="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
           <hr />
           <h1>{user.name}</h1>
           <h2>{user.email}</h2>
