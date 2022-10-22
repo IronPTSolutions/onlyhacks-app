@@ -12,7 +12,8 @@ const SignupSchema = Yup.object().shape({
   password: Yup
     .string()
     .min(8, ERRORS.ERROR_PASSWORD_LENGTH)
-    .required(ERRORS.ERROR_REQUIRED)
+    .required(ERRORS.ERROR_REQUIRED),
+  image: Yup.mixed().required()
 })
 
 export default SignupSchema

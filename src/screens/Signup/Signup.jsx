@@ -1,4 +1,5 @@
 import { useFormik } from 'formik';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Input from '../../components/misc/Input';
 import { createUser } from '../../services/UserService';
@@ -7,13 +8,14 @@ import SignupSchema from './SignupSchema';
 const INITIAL_VALUES = {
   name: '',
   email: '',
-  password: ''
+  password: '',
+  image: ''
 }
 
 function Signup() {
   const {
     values, handleChange, handleBlur, handleSubmit, errors,
-    isSubmitting, setSubmitting, setFieldError
+    isSubmitting, setSubmitting, setFieldError, setFieldValue
   } = useFormik({
     initialValues: INITIAL_VALUES,
     onSubmit: onSubmit,
@@ -24,8 +26,17 @@ function Signup() {
 
   const navigate = useNavigate();
 
-  function onSubmit(values) { // Lo declaro como function en vez de const, porque asi por el hoisting la puedo usar en el useFormik
-    createUser(values)
+  function onSubmit(values) {// Lo declaro como function en vez de const, porque asi por el hoisting la puedo usar en el useFormik
+    const formData = new FormData()
+
+    // formData.append('email', values.email) Tengo que ir haciendo append de cada uno de los campos
+
+    // O si se que en values esta todo, hago un bucle
+    for (let value in values) {
+      formData.append(value, values[value])
+    }
+
+    createUser(formData)
       .then(user => {
         console.log(user);
         // resetForm()
@@ -47,6 +58,17 @@ function Signup() {
       })
   }
 
+  const [form, setForm] = useState({ email: '', name: '' })
+
+  const handleOnChange = event => {
+    const { name, value, type, files } = event
+
+    if (type === 'file') {
+      setForm({ ...form, [name]: files[0] })
+    } else {
+      setForm({ ...form, [name]: value }) // C://djakldjalksjd
+    }
+  }
 
   return (
     <div className="Signup container">
@@ -85,6 +107,18 @@ function Signup() {
           value={values.password}
           onChange={handleChange}
           error={errors.password}
+          onBlur={handleBlur}
+        />
+
+        <Input
+          label="File"
+          placeholder="Add file"
+          type="file"
+          name="image"
+          id="file"
+          // value={values.password}
+          onChange={(e) => setFieldValue('image', e.target.files[0])}
+          error={errors.image}
           onBlur={handleBlur}
         />
 
